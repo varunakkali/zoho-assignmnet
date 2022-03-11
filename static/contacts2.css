@@ -2,7 +2,7 @@ body {
     font-family: "SF pro display";
     font-weight: Semibold;
     background-color: black;
-    background-image: url(/static/images/login.jpg);
+    background-image: url(/static/images/contact.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
