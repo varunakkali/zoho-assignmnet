@@ -20,7 +20,7 @@ mysql = MySQL(app)
 
 
 
-#adding Login Manager/login required class
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -31,12 +31,12 @@ def login_required(f):
             return redirect(url_for('login'))
 
     return wrap
-#home
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Get Form Fields
+        
         uemail = request.form['email']
         password_candidate = request.form['password']
         umail=str(uemail)
@@ -48,22 +48,21 @@ def login():
         result = cur.execute("select * from users where email= %s",[umail] )
 
         if result > 0:
-            # Get stored hash
+           
             data = cur.fetchone()
             password = data['password']
 
-            # Compare Passwords
+           
 
             if password_candidate==password :
-            #if sha256_crypt.verify(password_candidate, password):
-                # Passed
+
                 session['logged_in'] = True
                 session['email'] = uemail
                 return redirect(url_for('contacts'))
             else:
                 flash("Check the Username and Password")
                 return render_template('login.html')
-            # Close connection
+
             cur.close()
         else:
             
@@ -75,7 +74,7 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        # Get Form Fields
+
         uemail=request.form['email']
         upass=request.form['password']
         usecret=request.form['secret']
@@ -97,7 +96,7 @@ def signup():
 @login_required
 def addcon():
     if request.method == 'POST':
-        # Get Form Fields
+
         
         uname=request.form['cname']
         unum=request.form['cnumber']
@@ -136,13 +135,6 @@ def contacts():
  
  
 
-
-
-
-
-
-
-#view complaints
 
     
 if __name__=="__main__":
